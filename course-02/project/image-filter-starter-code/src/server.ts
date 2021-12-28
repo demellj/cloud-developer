@@ -37,6 +37,27 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
+  // GET /filteredimage?image_url={{URL}}
+  app.get("/filteredimage", async (req, res) => {
+    try {
+      let { image_url } = req.query;
+
+      let temp: string = await filterImageFromURL(image_url);
+      
+      const options: any = {};
+      
+      res.status(200).sendFile(temp, options, async function(err) {
+        await deleteLocalFiles([temp]);
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(422).send({
+        code: 422,
+        message: "Could not process image"
+      });
+    }
+  })
+  
 
   // Start the Server
   app.listen( port, () => {
