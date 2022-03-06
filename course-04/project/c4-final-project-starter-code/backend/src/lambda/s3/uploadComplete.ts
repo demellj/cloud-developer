@@ -14,8 +14,8 @@ const S3 = new XAWS.S3({
 });
 
 import { createLogger } from '../../utils/logger';
-import { updateAttachmentUrl } from '../../helpers/todos'
-import { AttachmentUtils } from '../../helpers/attachmentUtils';
+import { updateAttachmentUrl } from '../../businessLogic/todos'
+import { AttachmentUtils } from '../../dataLayer/attachmentUtils';
 
 
 const logger = createLogger("S3Handler");
